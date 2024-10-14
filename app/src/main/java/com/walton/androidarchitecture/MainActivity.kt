@@ -294,7 +294,7 @@ fun BodyItems(modifier: Modifier = Modifier, bodyItems: List<Body>) {
 }
 
 @Composable
-fun FavoriteItems(modifier: Modifier, favoriteItems: List<FavoriteItem>, onItemClick: () -> Unit) {
+fun FavoriteItems(modifier: Modifier, favoriteItems: List<FavoriteItem>) {
     LazyHorizontalGrid(
         rows = GridCells.Fixed(2),
         contentPadding = PaddingValues(horizontal = 16.dp),
