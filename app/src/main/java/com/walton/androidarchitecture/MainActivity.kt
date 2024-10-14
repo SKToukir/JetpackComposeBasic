@@ -87,7 +87,9 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun Greetings(modifier: Modifier = Modifier){
-    Text(text = "Hello Walton", modifier)
+    Column {
+        Text(text = "Hello Walton", modifier)
+    }
 }
 
 
