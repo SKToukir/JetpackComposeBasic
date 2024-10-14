@@ -1,6 +1,5 @@
 import com.walton.androidarchitecture.Body
 import com.walton.androidarchitecture.FavoriteItem
-import com.walton.androidarchitecture.FavoriteItems
 import com.walton.androidarchitecture.Messge
 import com.walton.androidarchitecture.R
 

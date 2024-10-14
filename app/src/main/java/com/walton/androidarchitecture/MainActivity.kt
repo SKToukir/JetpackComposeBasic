@@ -15,6 +15,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -44,6 +45,7 @@ import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
+import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
@@ -80,23 +82,64 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            Greetings()
+            AndroidArchitectureTheme {
+                MyApp()
+            }
         }
     }
 }
 
 @Composable
-fun Greetings(modifier: Modifier = Modifier){
-    Column {
-        Text(text = "Hello Walton", modifier)
+fun Greetings(name: String, modifier: Modifier = Modifier) {
+
+    var expanded by remember {
+        mutableStateOf(false)
+    }
+
+    val extraPadding = if (expanded) 48.dp else 0.dp
+
+    Surface(
+        color = MaterialTheme.colorScheme.primary,
+        modifier = Modifier.padding(vertical = 4.dp, horizontal = 8.dp)
+    ) {
+        Row(modifier = Modifier.padding(24.dp)) {
+            Column(modifier = Modifier.weight(1f).padding(bottom = extraPadding)) {
+                Text(
+                    text = name, modifier
+                )
+                Text(
+                    text = name, modifier
+                )
+            }
+            ElevatedButton(onClick = {
+                expanded = !expanded
+            }) {
+                Text(if (expanded) "Show Less" else "Show More")
+            }
+        }
     }
 }
 
+@Composable
+fun MyApp(names: List<String> = listOf("Hello", "Android"), modifier: Modifier = Modifier) {
+    Surface(
+        modifier = modifier,
+        color = MaterialTheme.colorScheme.background
+    ) {
+        Column(modifier = Modifier.padding(vertical = 4.dp)) {
+            for (item in names) {
+                Greetings(name = item)
+            }
+        }
+    }
+}
 
 @Preview
 @Composable
-fun PreviewMainApp(){
-    Surface(modifier = Modifier.fillMaxSize()) {
-        Greetings(modifier = Modifier.padding(16.dp))
+fun PreviewMainApp() {
+    AndroidArchitectureTheme {
+        Surface(modifier = Modifier.fillMaxSize()) {
+            MyApp()
+        }
     }
 }
