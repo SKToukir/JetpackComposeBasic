@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Android</string>
+    <string name="search">Search</string>
+    <string name="align_body_title">Align your Body</string>
+    <string name="favorite_item">Favorite Collections</string>
+    <string name="home">Home</string>
+    <string name="profile">Profile</string>
+</resources>
