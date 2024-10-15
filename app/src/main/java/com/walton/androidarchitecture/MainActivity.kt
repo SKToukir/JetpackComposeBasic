@@ -1,6 +1,7 @@
 package com.walton.androidarchitecture
 
 import SampleData
+import android.content.res.Configuration
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
@@ -70,10 +71,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.walton.androidarchitecture.ui.theme.AndroidArchitectureTheme
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Devices
 
 
 class MainActivity : ComponentActivity() {
@@ -89,8 +92,28 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+
 @Composable
-fun Greetings(name: String, modifier: Modifier = Modifier) {
+fun OnBoardingScreen(modifier: Modifier = Modifier, OnContinueClicked: () -> Unit) {
+
+    Column(
+        modifier = modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Text(text = "Welcome to the basics Codelab")
+        Button(
+            onClick =
+            OnContinueClicked
+        ) {
+            Text(text = "Continue")
+        }
+    }
+
+}
+
+@Composable
+fun Greeting(name: String, modifier: Modifier = Modifier) {
 
     var expanded by remember {
         mutableStateOf(false)
@@ -103,7 +126,11 @@ fun Greetings(name: String, modifier: Modifier = Modifier) {
         modifier = Modifier.padding(vertical = 4.dp, horizontal = 8.dp)
     ) {
         Row(modifier = Modifier.padding(24.dp)) {
-            Column(modifier = Modifier.weight(1f).padding(bottom = extraPadding)) {
+            Column(
+                modifier = Modifier
+                    .weight(1f)
+                    .padding(bottom = extraPadding)
+            ) {
                 Text(
                     text = name, modifier
                 )
@@ -121,25 +148,46 @@ fun Greetings(name: String, modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun MyApp(names: List<String> = listOf("Hello", "Android"), modifier: Modifier = Modifier) {
+fun MyApp(modifier: Modifier = Modifier) {
+
+    var shouldShowOnBoarding by remember {
+        mutableStateOf(true)
+    }
+
     Surface(
         modifier = modifier,
         color = MaterialTheme.colorScheme.background
     ) {
-        Column(modifier = Modifier.padding(vertical = 4.dp)) {
-            for (item in names) {
-                Greetings(name = item)
-            }
+        if (shouldShowOnBoarding) {
+            OnBoardingScreen(OnContinueClicked = {
+                shouldShowOnBoarding = false
+            })
+        } else {
+            Greetings()
         }
     }
 }
 
-@Preview
+@Composable
+fun Greetings(modifier: Modifier = Modifier, names: List<String> = listOf("Android", "Developer")) {
+    Column(modifier = modifier.padding(vertical = 8.dp)) {
+        for (name in names) {
+            Greeting(name = name)
+        }
+    }
+}
+
+@Preview(device = Devices.PIXEL_4_XL, showBackground = true)
 @Composable
 fun PreviewMainApp() {
     AndroidArchitectureTheme {
         Surface(modifier = Modifier.fillMaxSize()) {
             MyApp()
+            OnBoardingScreen(OnContinueClicked = {
+
+            })
         }
+
+
     }
 }
