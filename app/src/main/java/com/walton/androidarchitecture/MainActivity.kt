@@ -64,6 +64,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -116,7 +117,7 @@ fun OnBoardingScreen(modifier: Modifier = Modifier, OnContinueClicked: () -> Uni
 @Composable
 fun Greeting(name: String, modifier: Modifier = Modifier) {
 
-    var expanded by remember {
+    var expanded by rememberSaveable {
         mutableStateOf(false)
     }
 
@@ -151,7 +152,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
 @Composable
 fun MyApp(modifier: Modifier = Modifier) {
 
-    var shouldShowOnBoarding by remember {
+    var shouldShowOnBoarding by rememberSaveable {
         mutableStateOf(true)
     }
 
@@ -188,7 +189,5 @@ fun PreviewMainApp() {
 
             })
         }
-
-
     }
 }
