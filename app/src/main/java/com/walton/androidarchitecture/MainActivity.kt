@@ -30,6 +30,7 @@ import androidx.compose.foundation.layout.paddingFromBaseline
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyHorizontalGrid
@@ -169,9 +170,9 @@ fun MyApp(modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun Greetings(modifier: Modifier = Modifier, names: List<String> = listOf("Android", "Developer")) {
-    Column(modifier = modifier.padding(vertical = 8.dp)) {
-        for (name in names) {
+fun Greetings(modifier: Modifier = Modifier, names: List<String> = List(1000){"$it"}) {
+    LazyColumn(modifier = modifier.padding(vertical = 8.dp)) {
+        items(items = names){ name ->
             Greeting(name = name)
         }
     }
