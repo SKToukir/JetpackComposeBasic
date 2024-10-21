@@ -73,4 +73,5 @@ dependencies {
     implementation(libs.androidx.runtime.livedata)
     // Optional - Integration with RxJava
     implementation(libs.androidx.runtime.rxjava2)
+    implementation(libs.androidx.material.icons.extended)
 }
